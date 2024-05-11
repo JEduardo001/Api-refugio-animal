@@ -57,7 +57,7 @@ app.listen(PORT, () => {
 
 // endpoint de firestore 
 
-app.get('/datos', async (req, res) => {
+/*app.get('/datos', async (req, res) => {
   try {
     const datos = [];
     const snapshot = await db.collection('1').get();
@@ -69,7 +69,7 @@ app.get('/datos', async (req, res) => {
     console.error('Error al obtener datos:', error);
     res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
   }
-});
+});*/
 
 
 //subir la imagen a fire storage
