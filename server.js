@@ -84,10 +84,7 @@ app.post('/subirImagen', (req, res) => {
   res.send('Datos recibidos correctamente');
 });
 
-// Iniciar el servidor
-app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
-});
+
 
 
 
