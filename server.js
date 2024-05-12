@@ -93,11 +93,11 @@ app.post('/subirImagen', (req, res) => {
 
   // Sube datos a Firestore
   const data = {
-    nombre: 'sss',
-    edad: '12',
-    raza: 'sss',
-    imagen: imageData,
-    id: 2
+    'nombre': 'sss',
+    'edad': '12',
+    'raza': 'sss',
+    'imagen': imageData,
+    'id': 2
   };
 
   collectionRef.add(data)
