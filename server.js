@@ -71,6 +71,21 @@ app.get('/datos', async (req, res) => {
 });
 
 
+app.get('/verGatos', async (req, res) => {
+  try {
+    const datos = [];
+    const snapshot = await db.collection('gatos').get();
+    snapshot.forEach((doc) => {
+      datos.push(doc.data());
+    });
+    res.json(datos);
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
+  }
+
+});
+
 app.post('/subirImagen', (req, res) => {
   // Aquí puedes acceder a los parámetros enviados en la solicitud
   const nombre =  req.body.nombre;
