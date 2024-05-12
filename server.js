@@ -75,7 +75,7 @@ app.post('/subirImagen', (req, res) => {
   // Aquí puedes acceder a los parámetros enviados en la solicitud
   const nombre =  req.body.nombre;
   //const imageData = req.file; // Aquí obtienes la imagen
-  const edad = req.edad;
+  const edad = req.body.edad;
   const raza = req.body.raza;
 
   const numberOfDocuments = null;
