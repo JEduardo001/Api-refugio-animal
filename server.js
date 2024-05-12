@@ -72,11 +72,12 @@ app.get('/datos', async (req, res) => {
 
 app.post('/subirImagen', (req, res) => {
   // Aquí puedes acceder a los parámetros enviados en la solicitud
-  const nombre = req.body.nombre;
+  
   const imageData = req.file; // Aquí obtienes la imagen
   const edad = req.body.edad;
   const raza = req.body.raza;
-
+  const nombre = req.body.nombre;
+  
   const numberOfDocuments = null;
   const collectionRef = db.collection('gatos');
   // Obtén el número total de documentos en la colección
