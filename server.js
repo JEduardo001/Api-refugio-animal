@@ -5,7 +5,8 @@ const PORT = process.env.PORT || 3000;
 //const db = require('./dbFirestore'); // Importa la conexión a la base de datos
 const admin = require('firebase-admin');
 var serviceAccount = require("./refugio-animal-92181-firebase-adminsdk-h8a3q-d18c72f487.json");
-
+// Middleware para analizar el cuerpo de la solicitud como JSON
+app.use(express.json());
 //firestorage
 //const multer = require('multer');
 //const { Storage } = require('@google-cloud/storage');
@@ -71,41 +72,21 @@ app.get('/datos', async (req, res) => {
 
 
 app.post('/subirImagen', (req, res) => {
-  // Aquí puedes acceder a los parámetros enviados en la solicitud
-  
-  //const imageData = req.image; // Aquí obtienes la imagen
-  const edad = req.body.edad;
-  //const raza = req.body.raza;
+  // Ahora puedes acceder a los parámetros del cuerpo de la solicitud usando req.body
   const nombre = req.body.nombre;
-  console.log('el valor de edad es: ',edad);
-  const numberOfDocuments = 1;
-  const collectionRef = db.collection('gatos');
-  // Obtén el número total de documentos en la colección
-  /*collectionRef.get()
-    .then((querySnapshot) => {
-      numberOfDocuments = querySnapshot.size;
-      console.log('Número total de documentos:', numberOfDocuments);
-      numberOfDocuments+1;
-    })
-    .catch((error) => {
-      console.error('Error al obtener la colección para obtener su ID:', error);
-  });*/
+  const edad = req.body.edad;
 
-  // Sube datos a Firestore
-  const data = {
-    'nombre': nombre,
-    'edad': edad
-  };
+  // Hacer algo con los datos recibidos
+  console.log('Nombre:', nombre);
+  console.log('Edad:', edad);
 
-  collectionRef.add(data)
-    .then((docRef) => {
-      console.log('Documento agregado con ID:', numberOfDocuments);
-    })
-    .catch((error) => {
-      console.error('Error al agregar documento:', error);
-    });
-    // Envía una respuesta al cliente
-    res.send('Imagen recibida correctamente');
+  // Enviar una respuesta al cliente
+  res.send('Datos recibidos correctamente');
+});
+
+// Iniciar el servidor
+app.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
 });
 
 
