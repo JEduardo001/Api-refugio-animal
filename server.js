@@ -81,7 +81,7 @@ app.post('/subirImagen', (req, res) => {
   const numberOfDocuments = null;
   const collectionRef = db.collection('gatos');
   // Obtén el número total de documentos en la colección
-  collectionRef.get()
+  /*collectionRef.get()
     .then((querySnapshot) => {
       numberOfDocuments = querySnapshot.size;
       console.log('Número total de documentos:', numberOfDocuments);
@@ -89,7 +89,7 @@ app.post('/subirImagen', (req, res) => {
     })
     .catch((error) => {
       console.error('Error al obtener la colección para obtener su ID:', error);
-  });
+  });*/
 
   // Sube datos a Firestore
   const data = {
@@ -97,7 +97,7 @@ app.post('/subirImagen', (req, res) => {
     edad: edad,
     raza: raza,
     imagen: imageData,
-    id: numberOfDocuments
+    id: 2
   };
 
   collectionRef.add(data)
