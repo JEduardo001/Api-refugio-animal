@@ -73,8 +73,8 @@ app.get('/datos', async (req, res) => {
 app.post('/subirImagen', (req, res) => {
   // Aquí puedes acceder a los parámetros enviados en la solicitud
   
-  /*const imageData = req.file; // Aquí obtienes la imagen
-  const edad = req.edad;
+  const imageData = req.file; // Aquí obtienes la imagen
+  /*const edad = req.edad;
   const raza = req.raza;
   const nombre = req.nombre;*/
   
@@ -96,7 +96,7 @@ app.post('/subirImagen', (req, res) => {
     'nombre': 'sss',
     'edad': '12',
     'raza': 'sss',
-    'imagen': 'imageData',
+    'imagen': imageData,
     'id': 2
   };
 
