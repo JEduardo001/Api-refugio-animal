@@ -74,10 +74,10 @@ app.post('/subirImagen', (req, res) => {
   // Aquí puedes acceder a los parámetros enviados en la solicitud
   
   //const imageData = req.image; // Aquí obtienes la imagen
-  /*const edad = req.edad;
-  const raza = req.raza;
-  const nombre = req.nombre;*/
-  
+  const edad = req.body.edad;
+  //const raza = req.body.raza;
+  const nombre = req.body.nombre;
+  console.log('el valor de edad es: ',edad);
   const numberOfDocuments = 1;
   const collectionRef = db.collection('gatos');
   // Obtén el número total de documentos en la colección
