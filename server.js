@@ -75,8 +75,8 @@ app.post('/subirImagen', (req, res) => {
   
   const imageData = req.file; // Aquí obtienes la imagen
   const edad = req.edad;
-  const raza = req.body.raza;
-  const nombre = req.body.nombre;
+  const raza = req.raza;
+  const nombre = req.nombre;
   
   const numberOfDocuments = null;
   const collectionRef = db.collection('gatos');
