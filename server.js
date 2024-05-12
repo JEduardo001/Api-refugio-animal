@@ -77,7 +77,8 @@ app.post('/subirImagen', (req, res) => {
   //const imageData = req.file; // Aquí obtienes la imagen
   const edad = req.body.edad;
   const raza = req.body.raza;
-
+  const imagen = req.body.imagen;
+  
   const numberOfDocuments = null;
   const collectionRef = db.collection('gatos');
   // Obtén el número total de documentos en la colección
@@ -96,7 +97,7 @@ app.post('/subirImagen', (req, res) => {
     'nombre': nombre,
     'edad': edad,
     'raza': raza,
-    'imagen': 'imageData',
+    'imagen': imagen,
     'id': 2
   };
 
