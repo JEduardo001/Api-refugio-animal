@@ -70,11 +70,11 @@ app.get('/datos', async (req, res) => {
 });
 
 
-app.post('/subirImagen', (req, res) => {
+app.post('/subirImagen', async (req, res) => {
   // Aquí puedes acceder a los parámetros enviados en la solicitud
   
   //const imageData = req.image; // Aquí obtienes la imagen
-  const edad = req.body.edad;
+  const edad = await req.body.edad;
   //const raza = req.body.raza;
   const nombre = req.body.nombre;
   console.log('el valor de edad es: ',edad);
@@ -93,11 +93,8 @@ app.post('/subirImagen', (req, res) => {
 
   // Sube datos a Firestore
   const data = {
-    'nombre': 'sss',
-    'edad': '12',
-    'raza': 'sss',
-    'imagen': 'caca',
-    'id': 2
+    'nombre': nombre,
+    'edad': edad
   };
 
   collectionRef.add(data)
