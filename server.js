@@ -72,16 +72,43 @@ app.get('/datos', async (req, res) => {
 
 
 app.post('/subirImagen', (req, res) => {
-  // Ahora puedes acceder a los parámetros del cuerpo de la solicitud usando req.body
-  const nombre = req.body.nombre;
-  const edad = req.body.edad;
+  // Aquí puedes acceder a los parámetros enviados en la solicitud
+  const nombre =  req.body.nombre;
+  //const imageData = req.file; // Aquí obtienes la imagen
+  const edad = req.edad;
+  const raza = req.body.raza;
 
-  // Hacer algo con los datos recibidos
-  console.log('Nombre:', nombre);
-  console.log('Edad:', edad);
+  const numberOfDocuments = null;
+  const collectionRef = db.collection('gatos');
+  // Obtén el número total de documentos en la colección
+  /*collectionRef.get()
+    .then((querySnapshot) => {
+      numberOfDocuments = querySnapshot.size;
+      console.log('Número total de documentos:', numberOfDocuments);
+      numberOfDocuments+1;
+    })
+    .catch((error) => {
+      console.error('Error al obtener la colección para obtener su ID:', error);
+  });*/
 
-  // Enviar una respuesta al cliente
-  res.send('Datos recibidos correctamente');
+  // Sube datos a Firestore
+  const data = {
+    'nombre': nombre,
+    'edad': edad,
+    'raza': raza,
+    'imagen': 'imageData',
+    'id': 2
+  };
+
+  collectionRef.add(data)
+    .then((docRef) => {
+      console.log('Documento agregado con ID:', 1);
+    })
+    .catch((error) => {
+      console.error('Error al agregar documento:', error);
+    });
+    // Envía una respuesta al cliente
+    res.send('Imagen recibida correctamente');
 });
 
 
