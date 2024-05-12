@@ -1,4 +1,3 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
 
 const express = require('express');
 const app = express();
@@ -8,8 +7,8 @@ const admin = require('firebase-admin');
 var serviceAccount = require("./refugio-animal-92181-firebase-adminsdk-h8a3q-d18c72f487.json");
 
 //firestorage
-const multer = require('multer');
-const { Storage } = require('@google-cloud/storage');
+//const multer = require('multer');
+//const { Storage } = require('@google-cloud/storage');
 
 
 
@@ -18,12 +17,11 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
-
-const upload = multer({ dest: 'uploads/' });
+//const upload = multer({ dest: 'uploads/' });
 // Crea una instancia de Storage de Google Cloud
-const storage = new Storage();
+//const storage = new Storage();
 // Obtiene una referencia al bucket de Firebase Storage
-const bucket = storage.bucket(admin.storage().bucket().name);
+//const bucket = storage.bucket(admin.storage().bucket().name);
 
 
 // Ruta de ejemplo
@@ -57,7 +55,7 @@ app.listen(PORT, () => {
 
 // endpoint de firestore 
 
-/*app.get('/datos', async (req, res) => {
+app.get('/datos', async (req, res) => {
   try {
     const datos = [];
     const snapshot = await db.collection('1').get();
@@ -69,11 +67,60 @@ app.listen(PORT, () => {
     console.error('Error al obtener datos:', error);
     res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
   }
+});
+
+
+app.post('/subirImagen', (req, res) => {
+  // Aquí puedes acceder a los parámetros enviados en la solicitud
+  const nombre = req.body.nombre;
+  const imageData = req.file; // Aquí obtienes la imagen
+  const edad = req.body.edad;
+  const raza = req.body.raza;
+
+  const numberOfDocuments = null;
+  const collectionRef = db.collection('gatos');
+  // Obtén el número total de documentos en la colección
+  collectionRef.get()
+    .then((querySnapshot) => {
+      numberOfDocuments = querySnapshot.size;
+      console.log('Número total de documentos:', numberOfDocuments);
+      numberOfDocuments+1;
+    })
+    .catch((error) => {
+      console.error('Error al obtener la colección para obtener su ID:', error);
+  });
+
+  // Sube datos a Firestore
+  const data = {
+    nombre: nombre,
+    edad: edad,
+    raza: raza,
+    imagen: imageData,
+    id: numberOfDocuments
+  };
+
+  collectionRef.add(data)
+    .then((docRef) => {
+      console.log('Documento agregado con ID:', numberOfDocuments);
+    })
+    .catch((error) => {
+      console.error('Error al agregar documento:', error);
+    });
+    // Envía una respuesta al cliente
+    res.send('Imagen recibida correctamente');
+});
+
+
+
+/*app.get('/test', async (req, res) => {
+  
+  const collectionRef = db.collection('gatos');
+
+ 
 });*/
 
-
 //subir la imagen a fire storage
-app.post('/subirImagen', upload.single('image'), async (req, res) => {
+/*app.post('/subirImagen', upload.single('image'), async (req, res) => {
   try {
     // Verifica si se subió un archivo
     if (!req.file) {
@@ -131,4 +178,4 @@ app.post('/subirImagen', upload.single('image'), async (req, res) => {
     console.error('Error al subir la imagen:', error);
     res.status(500).json({ error: 'Error al subir la imagen' });
   }
-});
+});*/
