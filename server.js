@@ -127,6 +127,21 @@ app.post('/subirImagen', (req, res) => {
     res.send('Imagen recibida correctamente');
 });
 
+//-------------- verGatosTodos
+app.get('/verGatosTodos', async (req, res) => {
+  try {
+    const datos = [];
+    const snapshot = await db.collection('gatos').get();
+    snapshot.forEach((doc) => {
+      datos.push(doc.data());
+    });
+    res.json(datos);
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
+  }
+
+});
 
 
 //---------- VerGatosEnAdopcion
