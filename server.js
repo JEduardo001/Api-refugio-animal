@@ -128,7 +128,7 @@ app.post('/subirImagen', (req, res) => {
 });
 
 //-------------- verGatosTodos
-app.get('/verGatosVerTodos', async (req, res) => {
+app.get('/verGatosTodos', async (req, res) => {
   try {
     const datos = [];
     const snapshot = await db.collection('gatos').get();
@@ -137,8 +137,8 @@ app.get('/verGatosVerTodos', async (req, res) => {
     });
     res.json(datos);
   } catch (error) {
-    console.error('Error al obtener datos para ver todos los gatos:', error);
-    res.status(500).json({ error: 'Ocurrió un error al obtener datos para ver todos los gatos.' });
+    console.error('Error al obtener datos ver todos los gatos:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos. ver todos los gatos' });
   }
 
 });
@@ -233,6 +233,117 @@ app.get('/VerGatosVerPerdidos', async (req, res) => {
   } catch (error) {
     console.error('Error al obtener datos gatos perdidos:', error);
     res.status(500).json({ error: 'Ocurrió un error al obtener datos gatos perdidos.' });
+  }
+
+});
+
+
+//-------------- VerPerrosVerTodos
+app.get('/VerPerrosVerTodos', async (req, res) => {
+  try {
+    const datos = [];
+    const snapshot = await db.collection('perros').get();
+    snapshot.forEach((doc) => {
+      datos.push(doc.data());
+    });
+    res.json(datos);
+  } catch (error) {
+    console.error('Error al obtener datos ver todos los perros:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos. ver todos los perros' });
+  }
+
+});
+
+
+//---------- VerPerrosEnAdopcion
+
+app.get('/VerPerrosEnAdopcion', async (req, res) => {
+  try {
+    const datosPerrosAdopcion = [];
+    const datosPerros = [];
+    const datosPerrosResultado = [];
+
+    const snapshot1 = await db.collection('perrosAdopcion').get();
+    const snapshot2 = await db.collection('perros').get();
+
+    snapshot1.forEach((doc) => {
+      datosPerrosAdopcion.push(doc.data());
+
+    });
+    snapshot2.forEach((doc) => {
+      datosPerros.push(doc.data());
+
+    });
+
+    datosPerros.forEach(async (docPerros) =>  {
+
+      datosPerrosAdopcion.forEach(async (docPerrosAdopcion) => {
+        if(docPerros.id==docPerrosAdopcion.idPerro){
+          var fechaIngresoPerro = docPerrosAdopcion.fechaIngreso;
+          fechaIngresoPerro = new Date(fechaIngresoPerro._seconds * 1000 + fechaIngresoPerro._nanoseconds / 1000000);
+          const año = fechaIngresoPerro.getFullYear();
+          const mes = String(fechaIngresoPerro.getMonth() + 1).padStart(2, '0'); 
+          const dia = String(fechaIngresoPerro.getDate()).padStart(2, '0');
+          const fecha = `${año}-${mes}-${dia}`;
+          docPerros.fecha = fecha;
+
+          datosPerrosResultado.push(docPerros);
+        }
+      });
+    
+    });
+
+    res.json(datosPerrosResultado);
+  } catch (error) {
+    console.error('Error al obtener datos perros adopcion:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos perros adopcion.' });
+  }
+
+});
+
+
+//---------- VerPerrosVerPerdidos
+
+app.get('/VerPerrosVerPerdidos', async (req, res) => {
+  try {
+    const datosPerrosPerdidos = [];
+    const datosPerros = [];
+    const datosPerrosResultado = [];
+
+    const snapshot1 = await db.collection('perrosPerdidos').get();
+    const snapshot2 = await db.collection('perros').get();
+
+    snapshot1.forEach((doc) => {
+      datosPerrosPerdidos.push(doc.data());
+
+    });
+    snapshot2.forEach((doc) => {
+      datosPerros.push(doc.data());
+
+    });
+
+    datosPerros.forEach(async (docPerros) =>  {
+
+      datosPerrosPerdidos.forEach(async (docPerrosPerdidos) => {
+        if(docPerros.id==docPerrosPerdidos.idPerro){
+          var fechaPerdidoPerro = docPerrosPerdidos.fechaPerdido;
+          fechaPerdidoPerro = new Date(fechaPerdidoPerro._seconds * 1000 + fechaPerdidoPerro._nanoseconds / 1000000);
+          const año = fechaPerdidoPerro.getFullYear();
+          const mes = String(fechaPerdidoPerro.getMonth() + 1).padStart(2, '0'); 
+          const dia = String(fechaPerdidoPerro.getDate()).padStart(2, '0');
+          const fecha = `${año}-${mes}-${dia}`;
+          docPerros.fecha = fecha;
+
+          datosPerrosResultado.push(docPerros);
+        }
+      });
+    
+    });
+
+    res.json(datosPerrosResultado);
+  } catch (error) {
+    console.error('Error al obtener datos perros perdidos:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos perros perdidos.' });
   }
 
 });
