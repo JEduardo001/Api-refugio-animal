@@ -128,7 +128,7 @@ app.post('/subirImagen', (req, res) => {
 });
 
 //-------------- verGatosTodos
-app.get('/verGatosTodos', async (req, res) => {
+app.get('/verGatosVerTodos', async (req, res) => {
   try {
     const datos = [];
     const snapshot = await db.collection('gatos').get();
@@ -137,8 +137,8 @@ app.get('/verGatosTodos', async (req, res) => {
     });
     res.json(datos);
   } catch (error) {
-    console.error('Error al obtener datos:', error);
-    res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
+    console.error('Error al obtener datos para ver todos los gatos:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos para ver todos los gatos.' });
   }
 
 });
