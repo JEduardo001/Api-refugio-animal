@@ -127,8 +127,8 @@ app.post('/subirImagen', (req, res) => {
     res.send('Imagen recibida correctamente');
 });
 
-//-------------- verGatosTodos
-app.get('/verGatosTodos', async (req, res) => {
+//-------------- verGatosVerTodos
+app.get('/verGatosVerTodos', async (req, res) => {
   try {
     const datos = [];
     const snapshot = await db.collection('gatos').get();
