@@ -191,6 +191,51 @@ app.get('/VerGatosEnAdopcion', async (req, res) => {
 });
 
 
+//---------- VerGatosVerPerdidos
+
+app.get('/VerGatosVerPerdidos', async (req, res) => {
+  try {
+    const datosGatosPerdidos = [];
+    const datosGatos = [];
+    const datosGatosResultado = [];
+
+    const snapshot1 = await db.collection('gatosPerdidos').get();
+    const snapshot2 = await db.collection('gatos').get();
+
+    snapshot1.forEach((doc) => {
+      datosGatosPerdidos.push(doc.data());
+
+    });
+    snapshot2.forEach((doc) => {
+      datosGatos.push(doc.data());
+
+    });
+
+    datosGatos.forEach(async (docGatos) =>  {
+
+      datosGatosPerdidos.forEach(async (docGatosPerdidos) => {
+        if(docGatos.id==docGatosPerdidos.idGato){
+          var fechaPerdidoGato = docGatosPerdidos.fechaPerdido;
+          fechaPerdidoGato = new Date(fechaPerdidoGato._seconds * 1000 + fechaPerdidoGato._nanoseconds / 1000000);
+          const año = fechaPerdidoGato.getFullYear();
+          const mes = String(fechaPerdidoGato.getMonth() + 1).padStart(2, '0'); 
+          const dia = String(fechaPerdidoGato.getDate()).padStart(2, '0');
+          const fecha = `${año}-${mes}-${dia}`;
+          docGatos.fecha = fecha;
+
+          datosGatosResultado.push(docGatos);
+        }
+      });
+    
+    });
+
+    res.json(datosGatosResultado);
+  } catch (error) {
+    console.error('Error al obtener datos gatos perdidos:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos gatos perdidos.' });
+  }
+
+});
 
 /*app.get('/test', async (req, res) => {
   
