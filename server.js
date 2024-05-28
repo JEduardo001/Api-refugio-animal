@@ -137,7 +137,9 @@ app.post('/SubirMascota', (req, res) => {
   var  coleccionDatos;
   var data2;
 
-  
+    console.log('tipo mascota  es   ', tipoMascota);
+    console.log('destino mascota  es   ', destinoMascota);
+
   
 
   const numberOfDocuments = getId(tipoMascota);
@@ -179,7 +181,7 @@ app.post('/SubirMascota', (req, res) => {
       }
     break;
   }
-
+  console.log('coleccion datos es   ', coleccionDatos);
   const collectionRef1 = db.collection(tipoMascota);
   const collectionRef2 = db.collection(coleccionDatos);
 
