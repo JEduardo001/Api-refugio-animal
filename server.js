@@ -139,8 +139,6 @@ app.post('/SubirMascota', (req, res) => {
 
   
   
-  const collectionRef1 = db.collection(tipoMascota);
-  const collectionRef2 = db.collection(coleccionDatos);
 
   const numberOfDocuments = getId(tipoMascota);
 
@@ -181,6 +179,9 @@ app.post('/SubirMascota', (req, res) => {
       }
     break;
   }
+
+  const collectionRef1 = db.collection(tipoMascota);
+  const collectionRef2 = db.collection(coleccionDatos);
 
   //Subimos los datos a la coleccion 
   const data = {
