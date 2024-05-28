@@ -137,6 +137,13 @@ app.post('/SubirMascota', (req, res) => {
   var  coleccionDatos;
   var data2;
 
+  
+  
+  const collectionRef1 = db.collection(tipoMascota);
+  const collectionRef2 = db.collection(coleccionDatos);
+
+  const numberOfDocuments = getId(tipoMascota);
+
   switch(tipoMascota){
     case 'gatos':
       if(destinoMascota=='adoptar'){
@@ -174,14 +181,8 @@ app.post('/SubirMascota', (req, res) => {
       }
     break;
   }
-  
-  const collectionRef1 = db.collection(tipoMascota);
-  const collectionRef2 = db.collection(coleccionDatos);
 
-  const numberOfDocuments = getId(tipoMascota);
-
-
-  //Subimos los datos a la coleccion perros
+  //Subimos los datos a la coleccion 
   const data = {
     'nombre': nombre,
     'edad': edad,
