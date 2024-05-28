@@ -109,11 +109,11 @@ app.get('/subirImagen', (req, res) => {
 function getId(coleccion){
 
   const collectionRef = db.collection(coleccion);
-
+  let numberOfDocuments;
 
   collectionRef.get()
     .then((querySnapshot) => {
-      let numberOfDocuments = querySnapshot.size;
+      numberOfDocuments = querySnapshot.size;
       numberOfDocuments = numberOfDocuments+1;
 
     })
