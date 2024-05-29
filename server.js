@@ -163,7 +163,12 @@ app.post('/ActualizarMascota', async (req, res) => {
     console.log('Datos a actualizar:', datos1);
     console.log('Colección:', coleccionDB, 'ID:', id);
 
-    const docRef = db.collection('gatos').doc('1');
+    const collectionRef = db.collection(coleccionDB);
+    const querySnapshot = await collectionRef.where('id', '==', id).get();
+
+    const docRef = querySnapshot.docs[0].ref;
+
+
     await docRef.update(datos1);
     res.status(200).send('Documento actualizado correctamente');
   } catch (error) {
