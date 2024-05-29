@@ -154,6 +154,8 @@ app.post('/ActualizarMascota', async (req, res) => {
   }
 
  try {
+       console.error('datos', tipoMascota,'  sss id  ',id);
+
     const docRef = db.collection(tipoMascota).doc(id);
     await docRef.update(datos1);
     res.status(200).send('Documento actualizado correctamente');
