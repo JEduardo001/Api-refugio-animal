@@ -261,12 +261,8 @@ app.get('/VerGatosEnAdopcion', async (req, res) => {
       datosGatosAdopcion.forEach(async (docGatosAdopcion) => {
         if(docGatos.id==docGatosAdopcion.idGato){
           var fechaIngresoGato = docGatosAdopcion.fechaIngreso;
-          fechaIngresoGato = new Date(fechaIngresoGato._seconds * 1000 + fechaIngresoGato._nanoseconds / 1000000);
-          const año = fechaIngresoGato.getFullYear();
-          const mes = String(fechaIngresoGato.getMonth() + 1).padStart(2, '0'); 
-          const dia = String(fechaIngresoGato.getDate()).padStart(2, '0');
-          const fecha = `${año}-${mes}-${dia}`;
-          docGatos.fecha = fecha;
+          
+          docGatos.fecha = fechaIngresoGato;
 
           datosGatosResultado.push(docGatos);
         }
@@ -308,12 +304,8 @@ app.get('/VerGatosVerPerdidos', async (req, res) => {
       datosGatosPerdidos.forEach(async (docGatosPerdidos) => {
         if(docGatos.id==docGatosPerdidos.idGato){
           var fechaPerdidoGato = docGatosPerdidos.fechaPerdido;
-          fechaPerdidoGato = new Date(fechaPerdidoGato._seconds * 1000 + fechaPerdidoGato._nanoseconds / 1000000);
-          const año = fechaPerdidoGato.getFullYear();
-          const mes = String(fechaPerdidoGato.getMonth() + 1).padStart(2, '0'); 
-          const dia = String(fechaPerdidoGato.getDate()).padStart(2, '0');
-          const fecha = `${año}-${mes}-${dia}`;
-          docGatos.fecha = fecha;
+        
+          docGatos.fecha = fechaPerdidoGato;
 
           datosGatosResultado.push(docGatos);
         }
@@ -372,12 +364,8 @@ app.get('/VerPerrosEnAdopcion', async (req, res) => {
       datosPerrosAdopcion.forEach(async (docPerrosAdopcion) => {
         if(docPerros.id==docPerrosAdopcion.idPerro){
           var fechaIngresoPerro = docPerrosAdopcion.fechaIngreso;
-          fechaIngresoPerro = new Date(fechaIngresoPerro._seconds * 1000 + fechaIngresoPerro._nanoseconds / 1000000);
-          const año = fechaIngresoPerro.getFullYear();
-          const mes = String(fechaIngresoPerro.getMonth() + 1).padStart(2, '0'); 
-          const dia = String(fechaIngresoPerro.getDate()).padStart(2, '0');
-          const fecha = `${año}-${mes}-${dia}`;
-          docPerros.fecha = fecha;
+          
+          docPerros.fecha = fechaIngresoPerro;
 
           datosPerrosResultado.push(docPerros);
         }
@@ -419,12 +407,8 @@ app.get('/VerPerrosVerPerdidos', async (req, res) => {
       datosPerrosPerdidos.forEach(async (docPerrosPerdidos) => {
         if(docPerros.id==docPerrosPerdidos.idPerro){
           var fechaPerdidoPerro = docPerrosPerdidos.fechaPerdido;
-          fechaPerdidoPerro = new Date(fechaPerdidoPerro._seconds * 1000 + fechaPerdidoPerro._nanoseconds / 1000000);
-          const año = fechaPerdidoPerro.getFullYear();
-          const mes = String(fechaPerdidoPerro.getMonth() + 1).padStart(2, '0'); 
-          const dia = String(fechaPerdidoPerro.getDate()).padStart(2, '0');
-          const fecha = `${año}-${mes}-${dia}`;
-          docPerros.fecha = fecha;
+        
+          docPerros.fecha = fechaPerdidoPerro;
 
           datosPerrosResultado.push(docPerros);
         }
@@ -439,5 +423,6 @@ app.get('/VerPerrosVerPerdidos', async (req, res) => {
   }
 
 });
+
 
 
