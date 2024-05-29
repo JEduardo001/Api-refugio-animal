@@ -261,8 +261,10 @@ app.get('/VerGatosEnAdopcion', async (req, res) => {
       datosGatosAdopcion.forEach(async (docGatosAdopcion) => {
         if(docGatos.id==docGatosAdopcion.idGato){
           var fechaIngresoGato = docGatosAdopcion.fechaIngreso;
+          var idGato = docGatosAdopcion.idGato;
           
           docGatos.fecha = fechaIngresoGato;
+          docGatos.idGato = idGato;
 
           datosGatosResultado.push(docGatos);
         }
