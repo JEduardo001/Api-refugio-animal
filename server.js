@@ -158,14 +158,14 @@ app.post('/ActualizarMascota', async (req, res) => {
   }
 
   try {
-    await _firestore.collection(coleccionDB).doc(id).update(datos1);
+    await db.collection(coleccionDB).doc(id).update(datos1);
     console.log('Documento actualizado correctamente en :',coleccionDB);
   } catch (e) {
     console.log('Error al actualizar el documento en : ',coleccionDB, '  error: ',e);
   }
 
   try {
-    await _firestore.collection(ubicacionMascota).doc(id).update(datos2);
+    await db.collection(ubicacionMascota).doc(id).update(datos2);
     console.log('Documento actualizado correctamente en :',ubicacionMascota);
   } catch (e) {
     console.log('Error al actualizar el documento en : ',ubicacionMascota, '  error: ',e);
