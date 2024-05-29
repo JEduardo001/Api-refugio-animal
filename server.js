@@ -157,19 +157,16 @@ app.post('/ActualizarMascota', async (req, res) => {
     datos2.set('fechaPerdido', fecha);
   }
 
-  try {
-    await db.collection(coleccionDB).doc(id).update(datos1);
-    console.log('Documento actualizado correctamente en :',coleccionDB);
-  } catch (e) {
-    console.log('Error al actualizar el documento en : ',coleccionDB, '  error: ',e);
+ try {
+    const docRef = db.collection(tipoMascota).doc(id);
+    await docRef.update(datos1);
+    res.status(200).send('Documento actualizado correctamente');
+  } catch (error) {
+    console.error('Error al actualizar el documento:', error);
+    res.status(500).send('Error al actualizar el documento');
   }
 
-  try {
-    await db.collection(ubicacionMascota).doc(id).update(datos2);
-    console.log('Documento actualizado correctamente en :',ubicacionMascota);
-  } catch (e) {
-    console.log('Error al actualizar el documento en : ',ubicacionMascota, '  error: ',e);
-  }
+  
  
 });
 
