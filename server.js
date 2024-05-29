@@ -183,6 +183,8 @@ app.post('/SubirMascota', (req, res) => {
     break;
   }
   console.log('coleccion datos es   ', coleccionDatos);
+    console.log('cantidad de documentos es   ', numberOfDocuments);
+
   const collectionRef1 = db.collection(tipoMascota);
   const collectionRef2 = db.collection(coleccionDatos);
 
