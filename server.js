@@ -135,6 +135,11 @@ app.post('/ActualizarMascota', async (req, res) => {
   const ubicacionMascota = req.body.ubicacion;
   const id = req.body.id;
 
+  const idNumber = Number(id);
+  if (isNaN(idNumber)) {
+    return res.status(400).send('ID del documento no es válido');
+  }
+
   var coleccionDB;
 
   var datos1 = {};
@@ -164,7 +169,7 @@ app.post('/ActualizarMascota', async (req, res) => {
     console.log('Colección:', coleccionDB, 'ID:', id);
 
     const collectionRef = db.collection(coleccionDB);
-    const querySnapshot = await collectionRef.where('id', '==', id).get();
+    const querySnapshot = await collectionRef.where('id', '==', idNumber).get();
 
     const docRef = querySnapshot.docs[0].ref;
 
