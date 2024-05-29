@@ -125,7 +125,7 @@ async function getId(coleccion) {
   return numberOfDocuments;
 }
 
-app.post('/SubirMascota', (req, res) => {
+app.post('/SubirMascota', async (req, res) => {
   // Aquí puedes acceder a los parámetros enviados en la solicitud
   const nombre =  req.body.nombre;
   //const imageData = req.file; // Aquí obtienes la imagen
@@ -143,7 +143,7 @@ app.post('/SubirMascota', (req, res) => {
 
   
 
-  const numberOfDocuments = getId(tipoMascota);
+  const numberOfDocuments = await getId(tipoMascota);
 
   switch(tipoMascota){
     case 'gatos':
