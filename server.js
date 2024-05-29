@@ -137,7 +137,7 @@ app.post('/ActualizarMascota', async (req, res) => {
 
   var coleccionDB;
 
-  var datos1 = req.body();
+  var datos1 = req.body;
   var datos2 = new Map();
 
   datos1.set('nombre', nombre);
