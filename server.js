@@ -216,7 +216,7 @@ app.post('/SubirMascota', async (req, res) => {
     .catch((error) => {
       console.error('Error al agregar documento :', error);
     });
-    res.send('mascota ingresado correctamente');
+    
 });
 
 //-------------- verGatosVerTodos
