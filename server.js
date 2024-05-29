@@ -152,7 +152,7 @@ app.post('/ActualizarMascota', async (req, res) => {
   }else{
     datos2.set('fechaPerdido', fecha);
   }
-
+  console.log(datos1);
  try {
        console.error('datos', coleccionDB,'  sss id  ',id);
 
