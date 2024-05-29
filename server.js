@@ -137,9 +137,13 @@ app.post('/ActualizarMascota', async (req, res) => {
 
   var coleccionDB;
 
-  var datos1 = req.body;
-  var datos2 = new Map();
+  var datos1 = {};
+  var datos2 = {};
 
+  if (nombre !== undefined) datos1.nombre = nombre;
+  if (edad !== undefined) datos1.edad = edad;
+  if (raza !== undefined) datos1.raza = raza;
+  if (imagen !== undefined) datos1.imagen = imagen;
 
 
   if(tipoMascota=='gato'){
@@ -148,13 +152,16 @@ app.post('/ActualizarMascota', async (req, res) => {
     coleccionDB = 'perros';
   }
   if(ubicacionMascota=='gatosAdopcion' || ubicacionMascota=='perrosAdopcion' ){
-    datos2.set('fechaIngreso', fecha);
+    datos2.fechaIngreso = fecha;
+
   }else{
-    datos2.set('fechaPerdido', fecha);
+    datos2.fechaPerdido = fecha;
+
   }
-  console.log(datos1);
- try {
-       console.error('datos', coleccionDB,'  sss id  ',id);
+
+  try {
+    console.log('Datos a actualizar:', datos1);
+    console.log('Colección:', coleccionDB, 'ID:', id);
 
     const docRef = db.collection(coleccionDB).doc(id);
     await docRef.update(datos1);
