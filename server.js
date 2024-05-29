@@ -140,10 +140,6 @@ app.post('/ActualizarMascota', async (req, res) => {
   var datos1 = req.body;
   var datos2 = new Map();
 
-  datos1.set('nombre', nombre);
-  datos1.set('edad', edad);
-  datos1.set('raza', raza);
-  datos1.set('imagen', imagen);
 
 
   if(tipoMascota=='gato'){
