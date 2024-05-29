@@ -109,7 +109,7 @@ app.get('/subirImagen', (req, res) => {
 async function getId(coleccion) {
 
   const collectionRef = await db.collection(coleccion);
-  const numberOfDocuments;
+  
 
   await collectionRef.get()
     .then((querySnapshot) => {
