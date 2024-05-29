@@ -264,7 +264,7 @@ app.get('/VerGatosEnAdopcion', async (req, res) => {
           var idGato = docGatosAdopcion.idGato;
           
           docGatos.fecha = fechaIngresoGato;
-          docGatos.idGato = idGato;
+          docGatos.id = idGato;
 
           datosGatosResultado.push(docGatos);
         }
