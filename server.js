@@ -125,6 +125,54 @@ async function getId(coleccion) {
   return numberOfDocuments;
 }
 
+app.post('/ActualizarMascota', async (req, res) => {
+  const nombre =  req.body.nombre;
+  const edad = req.body.edad;
+  const raza = req.body.raza;
+  const imagen = req.body.imagen;
+  const fecha = req.body.fecha;
+  const tipoMascota = req.body.tipoMascota;
+  const ubicacionMascota = req.body.ubicacion;
+  const id = req.body.id;
+
+  var coleccionDB;
+
+  var datos1 = new Map();
+  var datos2 = new Map();
+
+  datos1.set('nombre', nombre);
+  datos1.set('edad', edad);
+  datos1.set('raza', raza);
+  datos1.set('imagen', imagen);
+
+
+  if(tipoMascota=='gato'){
+    coleccionDB = 'gatos';
+  }else{
+    coleccionDB = 'perros';
+  }
+  if(ubicacionMascota=='gatosAdopcion' || ubicacionMascota=='perrosAdopcion' ){
+    datos2.set('fechaIngreso', fecha);
+  }else{
+    datos2.set('fechaPerdido', fecha);
+  }
+
+  try {
+    await _firestore.collection(coleccionDB).doc(id).update(datos1);
+    print('Documento actualizado correctamente en :',coleccionDB);
+  } catch (e) {
+    print('Error al actualizar el documento en : ',coleccionDB, '  error: ',e);
+  }
+
+  try {
+    await _firestore.collection(ubicacionMascota).doc(id).update(datos2);
+    print('Documento actualizado correctamente en :',ubicacionMascota);
+  } catch (e) {
+    print('Error al actualizar el documento en : ',ubicacionMascota, '  error: ',e);
+  }
+ 
+});
+
 app.post('/SubirMascota', async (req, res) => {
   // Aquí puedes acceder a los parámetros enviados en la solicitud
   const nombre =  req.body.nombre;
