@@ -125,6 +125,55 @@ async function getId(coleccion) {
   return numberOfDocuments;
 }
 
+app.delete('/BorrarMascota', async (req, res) => {
+  const id = req.body.id;
+  const tipoMascota = req.body.tipoMascota;
+  const ubicacion = req.body.ubicacion;
+  let idMascota;
+
+  const idNumber = Number(id);
+  if (isNaN(idNumber)) {
+    return res.status(400).send('ID del documento no es válido');
+  }
+
+  if (ubicacion === 'gatosAdopcion' || ubicacion === 'gatosPerdidos') {
+    idMascota = 'idGato';
+  } else {
+    idMascota = 'idPerro';
+  }
+
+  try {
+    // Eliminar en la colección de tipoMascota
+    const collectionRef = db.collection(tipoMascota + 's');
+    const querySnapshot = await collectionRef.where('id', '==', idNumber).get();
+
+    if (querySnapshot.empty) {
+      return res.status(404).send(`No se encontró una mascota con ID ${id} en la colección ${tipoMascota + 's'}.`);
+    }
+
+    querySnapshot.forEach(async (doc) => {
+      await doc.ref.delete();
+    });
+
+    // Eliminar en la colección de ubicación
+    const collectionRef2 = db.collection(ubicacion);
+    const querySnapshot2 = await collectionRef2.where(idMascota, '==', idNumber).get();
+
+    if (querySnapshot2.empty) {
+      return res.status(404).send(`No se encontró una mascota con ID ${id} en la colección ${ubicacion}.`);
+    }
+
+    querySnapshot2.forEach(async (doc) => {
+      await doc.ref.delete();
+    });
+
+    res.status(200).send(`Mascota con ID ${id} eliminada correctamente de ${tipoMascota + 's'} y ${ubicacion}.`);
+  } catch (error) {
+    console.error('Error al eliminar el documento:', error);
+    res.status(500).send('Error al eliminar el documento');
+  }
+});
+
 app.post('/ActualizarMascota', async (req, res) => {
   const nombre =  req.body.nombre;
   const edad = req.body.edad;
