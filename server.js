@@ -125,6 +125,37 @@ async function getId(coleccion) {
   return numberOfDocuments;
 }
 
+app.post('/SubirReporteRescateMascota', async (req, res) => {
+  const nombreTutor =  req.body.nombreTutor;
+  const direccion = req.body.direccion;
+  const telefono = req.body.telefono;
+  const correoElectronico = req.body.correoElectronico;
+  const idMascota = req.body.idMascota;
+  const tipoMascota = req.body.tipoMascota;
+  
+  const collectionRef = db.collection(tipoMascota+'s');
+
+  const data = {
+    'nombreTutor': nombreTutor,
+    'direccion': direccion,
+    'telefono': telefono,
+    'idMascota': idMascota,
+    'correoElectronico': correoElectronico
+  };
+
+  
+
+  collectionRef.add(data)
+    .then((docRef) => {
+      console.log('Documento agregado con ID:', numberOfDocuments);
+    })
+    .catch((error) => {
+      console.error('Error al agregar documento :', error);
+    });
+    res.send('agregado correctamanete');
+
+});
+
 app.delete('/BorrarMascota', async (req, res) => {
   const id = req.body.id;
   const tipoMascota = req.body.tipoMascota;
