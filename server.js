@@ -214,6 +214,7 @@ app.post('/SubirMascota', async (req, res) => {
   const tipoMascota = req.body.tipoMascota;
   const destinoMascota = req.body.destinoMascota;
   var  coleccionDatos;
+  var especie;
   var data2;
 
     console.log('tipo mascota  es   ', tipoMascota);
@@ -240,7 +241,8 @@ app.post('/SubirMascota', async (req, res) => {
       
         };
       }
-      
+      especie='gato';
+
     break;
     case 'perros':
       if(destinoMascota=='adoptar'){
@@ -258,6 +260,8 @@ app.post('/SubirMascota', async (req, res) => {
       
         };
       }
+      especie='perro';
+
     break;
   }
   console.log('coleccion datos es   ', coleccionDatos);
@@ -273,6 +277,8 @@ app.post('/SubirMascota', async (req, res) => {
     'raza': raza,
     'imagen': imagen,
     'id': numberOfDocuments,
+    'ubicacion': coleccionDatos,
+    'especie': especie
   };
 
   collectionRef1.add(data)
