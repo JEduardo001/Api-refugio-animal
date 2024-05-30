@@ -132,15 +132,19 @@ app.post('/SubirReporteRescateMascota', async (req, res) => {
   const correoElectronico = req.body.correoElectronico;
   const idMascota = req.body.idMascota;
   const tipoMascota = req.body.tipoMascota;
+  const ubicacionMascota = req.body.ubicacionMascota;
+
   
-  const collectionRef = db.collection(tipoMascota+'s');
+  const collectionRef = db.collection('reporteMascotasRescatadas');
 
   const data = {
     'nombreTutor': nombreTutor,
     'direccion': direccion,
     'telefono': telefono,
     'idMascota': idMascota,
-    'correoElectronico': correoElectronico
+    'correoElectronico': correoElectronico,
+    'tipoMascota': tipoMascota,
+    'ubicacionMascota': ubicacionMascota
   };
 
   
