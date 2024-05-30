@@ -160,6 +160,20 @@ app.post('/SubirReporteRescateMascota', async (req, res) => {
 
 });
 
+app.get('/getRescates', async (req, res) => {
+  try {
+    const datos = [];
+    const snapshot = await db.collection('reporteMascotasRescatadas').get();
+    snapshot.forEach((doc) => {
+      datos.push(doc.data());
+    });
+    res.json(datos);
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
+  }
+});
+
 app.delete('/BorrarMascota', async (req, res) => {
   const id = req.body.id;
   const tipoMascota = req.body.tipoMascota;
