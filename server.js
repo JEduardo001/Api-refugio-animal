@@ -162,12 +162,27 @@ app.post('/SubirReporteRescateMascota', async (req, res) => {
 
 app.get('/getRescates', async (req, res) => {
   try {
-    const datos = [];
+    const datosFinales = [];
     const snapshot = await db.collection('reporteMascotasRescatadas').get();
-    snapshot.forEach((doc) => {
-      datos.push(doc.data());
-    });
-    res.json(datos);
+
+    for (const doc of snapshot.docs) {
+      const docData = doc.data();
+      const idMascota = Number(docData.idMascota);
+      const tipoMascota = docData.tipoMascota;
+
+      const collectionRef = db.collection(tipoMascota + 's');
+      const querySnapshot = await collectionRef.where('id', '==', idMascota).get();
+
+      querySnapshot.forEach((doc2) => {
+        const combinedData = {
+          ...docData,
+          ...doc2.data()
+        };
+        datosFinales.push(combinedData);
+      });
+    }
+
+    res.json(datosFinales);
   } catch (error) {
     console.error('Error al obtener datos:', error);
     res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
