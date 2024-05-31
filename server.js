@@ -407,6 +407,10 @@ app.post('/ActualizarMascota', async (req, res) => {
   const tipoMascota = req.body.tipoMascota;
   const ubicacionMascota = req.body.ubicacion;
   const id = req.body.id;
+  const signosMaltrato = req.body.signosMaltrato;
+  const vacunaLeptospirosis = req.body.vacunaLeptospirosis;
+  const vacunaRabia = req.body.vacunaRabia;
+  
 
   var idMascota;
 
@@ -424,6 +428,9 @@ app.post('/ActualizarMascota', async (req, res) => {
   if (edad !== undefined) datos1.edad = edad;
   if (raza !== undefined) datos1.raza = raza;
   if (imagen !== undefined) datos1.imagen = imagen;
+  if (signosMaltrato !== undefined) datos1.signosMaltrato = signosMaltrato;
+  if (vacunaLeptospirosis !== undefined) datos1.vacunaLeptospirosis = vacunaLeptospirosis;
+  if (vacunaRabia !== undefined) datos1.vacunaRabia = vacunaRabia;
 
 
 
