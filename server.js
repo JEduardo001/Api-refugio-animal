@@ -189,6 +189,53 @@ app.get('/getRescates', async (req, res) => {
   }
 });
 
+app.delete('/rescatarMascota', async (req, res) => {
+  const idMascota = req.body.idMascota;
+  const tipoMascota = req.body.tipoMascota;
+  const ubicacionMascota = req.body.ubicacionMascota;
+
+  const idNumber = Number(idMascota);
+  var campoIdMascota;
+
+  if (ubicacionMascota === 'gatosAdopcion' || ubicacionMascota === 'gatosPerdidos') {
+    campoIdMascota = 'idGato';
+  } else {
+    campoIdMascota = 'idPerro';
+  }
+
+  try {
+    const collectionRef = db.collection(tipoMascota + 's');
+    const querySnapshot = await collectionRef.where('id', '==', idNumber).get();
+
+   
+
+    querySnapshot.forEach(async (doc) => {
+      await doc.ref.delete();
+    });
+
+    const collectionRef2 = db.collection(ubicacionMascota);
+    const querySnapshot2 = await collectionRef2.where(campoIdMascota, '==', idNumber).get();
+
+
+    querySnapshot2.forEach(async (doc) => {
+      await doc.ref.delete();
+    });
+
+    const collectionRef3 = db.collection('reporteMascotasRescatadas');
+    const querySnapshot3 = await collectionRef3.where('idMascota', '==', idNumber).get();
+
+
+    querySnapshot3.forEach(async (doc) => {
+      await doc.ref.delete();
+    });
+
+    res.status(200).send(`Mascota con ID ${idNumber} eliminada correctamente de ${tipoMascota + 's'} y ${ubicacion}.`);
+  } catch (error) {
+    console.error('Error al eliminar el documento:', error);
+    res.status(500).send('Error al eliminar el documento');
+  }
+});
+
 app.delete('/BorrarMascota', async (req, res) => {
   const id = req.body.id;
   const tipoMascota = req.body.tipoMascota;
