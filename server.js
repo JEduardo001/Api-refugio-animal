@@ -491,7 +491,7 @@ app.post('/SubirMascota', async (req, res) => {
   const vacunaRabia = req.body.vacunaRabia;
   var  coleccionDatos;
   var especie;
-  //var data2;
+  var data2;
 
     console.log('tipo mascota  es   ', tipoMascota);
     console.log('destino mascota  es   ', destinoMascota);
@@ -571,13 +571,13 @@ app.post('/SubirMascota', async (req, res) => {
 
   
 
-  /*collectionRef2.add(data2)
+  collectionRef2.add(data2)
     .then((docRef) => {
       console.log('Documento agregado con ID:', numberOfDocuments);
     })
     .catch((error) => {
       console.error('Error al agregar documento :', error);
-    });*/
+    });
     
 });
 
