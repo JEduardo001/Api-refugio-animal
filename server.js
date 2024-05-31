@@ -174,13 +174,13 @@ app.post('/CrearCuenta', async (req, res) => {
 });
 
 app.post('/IniciarSesion', async (req, res) => {
-  const nombreUsuario =  req.body.nombreUsuario;
+  const nombreUsuario = req.body.nombreUsuario;
   const contrasena = req.body.contrasena;
 
   var collectionRef = db.collection('usuarios');
   var querySnapshot = await collectionRef.where('nombreUsuario', '==', nombreUsuario).where('contrasena', '==', contrasena).get();
   var tipoUser;
-  var existe=false;
+  var existe = false;
   var idUsuario;
 
   if (querySnapshot.empty) {
@@ -189,24 +189,23 @@ app.post('/IniciarSesion', async (req, res) => {
     if (!querySnapshot.empty) {
       tipoUser = 'admin';
       existe = true;
-      idUsuario = querySnapshot.docs[0].id; 
+      idUsuario = querySnapshot.docs[0].data().idUsuario; // Acceder al campo idUsuario del documento
     }
   } else {
     tipoUser = 'usuario';
     existe = true;
-    idUsuario = querySnapshot.docs[0].id; 
+    idUsuario = querySnapshot.docs[0].data().idUsuario; // Acceder al campo idUsuario del documento
   }
- 
+
   const data = {
     'idUsuario': idUsuario,
     'tipo': tipoUser,
     'existeUsuario': existe,
-   
   };
 
-  res.json(data); 
-
+  res.json(data); // Devolver la respuesta al cliente
 });
+
 
 app.post('/SubirReporteRescateMascota', async (req, res) => {
   const nombreTutor =  req.body.nombreTutor;
