@@ -604,6 +604,8 @@ app.get('/verGatosVerTodos', async (req, res) => {
       const gatoData = doc.data();
       const ubicacionGato = gatoData.ubicacion;
       const idGato = Number(gatoData.id);
+      console.log('gato id',idGato);
+      console.log('ubicacioon ',ubicacionGato);
 
       const otherCollectionRef = db.collection(ubicacionGato); 
       const otherSnapshot = await otherCollectionRef.where('idGato', '==', idGato).get();
