@@ -609,13 +609,13 @@ app.get('/verGatosVerTodos', async (req, res) => {
 
       const otherCollectionRef = db.collection(ubicacionGato); 
       const otherSnapshot = await otherCollectionRef.where('idGato', '==', idGato).get();
-      console.log('datos ',otherSnapshot);
 
       const otherData = otherSnapshot.docs.map(doc => doc.data());
       gatoData.otherData = otherData;
 
       datos.push(gatoData);
     }));
+      console.log('datos ',datos);
 
     res.json(datos);
   } catch (error) {
