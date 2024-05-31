@@ -599,15 +599,26 @@ app.get('/verGatosVerTodos', async (req, res) => {
   try {
     const datos = [];
     const snapshot = await db.collection('gatos').get();
-    snapshot.forEach((doc) => {
-      datos.push(doc.data());
-    });
+
+    await Promise.all(snapshot.docs.map(async (doc) => {
+      const gatoData = doc.data();
+      const ubicacionGato = gatoData.ubicacion;
+      const idGato = Number(gatoData.id);
+
+      const otherCollectionRef = db.collection(ubicacionGato); 
+      const otherSnapshot = await otherCollectionRef.where('idGato', '==', idGato).get();
+
+      const otherData = otherSnapshot.docs.map(doc => doc.data());
+      gatoData.otherData = otherData;
+
+      datos.push(gatoData);
+    }));
+
     res.json(datos);
   } catch (error) {
     console.error('Error al obtener datos ver todos los gatos:', error);
     res.status(500).json({ error: 'Ocurrió un error al obtener datos. ver todos los gatos' });
   }
-
 });
 
 
