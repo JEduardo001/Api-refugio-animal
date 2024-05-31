@@ -183,14 +183,6 @@ app.post('/SubirReporteRescateMascota', async (req, res) => {
   };
 
   
-
-  collectionRef.add(data)
-    .then((docRef) => {
-      console.log('Documento agregado con ID:', numberOfDocuments);
-    })
-    .catch((error) => {
-      console.error('Error al agregar documento :', error);
-    });
     res.send('agregado correctamanete');
 
 });
