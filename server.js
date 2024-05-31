@@ -125,6 +125,45 @@ async function getId(coleccion) {
   return numberOfDocuments;
 }
 
+app.post('/CrearCuentaAdmin', async (req, res) => {
+  const nombre =  req.body.nombre;
+  const contrasena = req.body.contrasena;
+  
+  const collectionRef = db.collection('administradores');
+  
+  let numberOfDocuments;
+
+  await collectionRef.get()
+    .then((querySnapshot) => {
+      numberOfDocuments = querySnapshot.size;
+      numberOfDocuments = numberOfDocuments+1;
+
+    })
+    .catch((error) => {
+      console.error('Error al obtener la cantidad de la coleccion:', error);
+  });
+
+
+  
+  const data = {
+    'usuario': nombre,
+    'contrasena': contrasena,
+    'id': numberOfDocuments
+
+ 
+  };
+
+  collectionRef.add(data)
+    .then((docRef) => {
+      console.log('Cuenta ADMIN creada');
+    })
+    .catch((error) => {
+      console.error('Error al crear cuenta ADMIN:', error);
+    });
+    res.send('Cuenta ADMIN creada');
+
+});
+
 app.post('/CrearCuenta', async (req, res) => {
   const nombre =  req.body.nombre;
   const direccion = req.body.direccion;
