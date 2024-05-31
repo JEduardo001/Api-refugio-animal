@@ -152,7 +152,7 @@ app.post('/CrearCuenta', async (req, res) => {
 
   
   const data = {
-    'nombre': nombre,
+    'nombreUsuario': nombre,
     'direccion': direccion,
     'telefono': telefono,
     'correoElectronico': correoElectronico,
