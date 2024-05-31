@@ -165,7 +165,7 @@ app.post('/SubirReporteRescateMascota', async (req, res) => {
   const direccion = req.body.direccion;
   const telefono = req.body.telefono;
   const correoElectronico = req.body.correoElectronico;
-  const idMascota = req.body.idMascota;
+  var idMascota = req.body.idMascota;
   const tipoMascota = req.body.tipoMascota;
   const ubicacionMascota = req.body.ubicacionMascota;
 
