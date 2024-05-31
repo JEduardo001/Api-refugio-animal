@@ -189,12 +189,12 @@ app.post('/IniciarSesion', async (req, res) => {
     if (!querySnapshot.empty) {
       tipoUser = 'admin';
       existe = true;
-      idUsuario = querySnapshot.docs[0].data().idUsuario; // Acceder al campo idUsuario del documento
+      idUsuario = querySnapshot.docs[0].data().id; 
     }
   } else {
     tipoUser = 'usuario';
     existe = true;
-    idUsuario = querySnapshot.docs[0].data().idUsuario; // Acceder al campo idUsuario del documento
+    idUsuario = querySnapshot.docs[0].data().id; 
   }
 
   const data = {
