@@ -596,31 +596,32 @@ app.post('/SubirMascota', async (req, res) => {
 
 //-------------- verGatosVerTodos
 app.get('/verGatosVerTodos', async (req, res) => {
+
   try {
-    const datos = [];
+    const datosFinales = [];
     const snapshot = await db.collection('gatos').get();
 
-    await Promise.all(snapshot.docs.map(async (doc) => {
-      const gatoData = doc.data();
-      const ubicacionGato = gatoData.ubicacion;
-      const idGato = Number(gatoData.id);
-      console.log('gato id', idGato);
-      console.log('ubicacioon ', ubicacionGato);
+    for (const doc of snapshot.docs) {
+      const docData = doc.data();
+      const idMascota = Number(docData.id);
+      const ubicacionGato = docData.ubicacion;
 
-      const otherCollectionRef = db.collection(ubicacionGato); 
-      const otherSnapshot = await otherCollectionRef.where('idGato', '==', idGato).get();
+      const collectionRef = db.collection(ubicacionGato);
+      const querySnapshot = await collectionRef.where('idGato', '==', idMascota).get();
 
-      const otherData = otherSnapshot.docs.map(doc => doc.data());
-      gatoData.otherData = otherData; // Añadimos otherData como un array de objetos
+      querySnapshot.forEach((doc2) => {
+        const combinedData = {
+          ...docData,
+          ...doc2.data()
+        };
+        datosFinales.push(combinedData);
+      });
+    }
 
-      datos.push(gatoData);
-    }));
-    console.log('datos ', JSON.stringify(datos, null, 2)); // Print the datos array in a more readable format
-
-    res.json(datos);
+    res.json(datosFinales);
   } catch (error) {
-    console.error('Error al obtener datos ver todos los gatos:', error);
-    res.status(500).json({ error: 'Ocurrió un error al obtener datos. ver todos los gatos' });
+    console.error('Error al obtener datos:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
   }
 });
 
