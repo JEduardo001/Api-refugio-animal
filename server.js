@@ -125,6 +125,54 @@ async function getId(coleccion) {
   return numberOfDocuments;
 }
 
+app.post('/CrearCuenta', async (req, res) => {
+  const nombre =  req.body.nombre;
+  const direccion = req.body.direccion;
+  const telefono = req.body.telefono;
+  const correoElectronico = req.body.correoElectronico;
+  const contrasena = req.body.contrasena;
+ 
+
+
+  
+  const collectionRef = db.collection('usuarios');
+  
+  let numberOfDocuments;
+
+  await collectionRef.get()
+    .then((querySnapshot) => {
+      numberOfDocuments = querySnapshot.size;
+      numberOfDocuments = numberOfDocuments+1;
+
+    })
+    .catch((error) => {
+      console.error('Error al obtener la cantidad de la coleccion:', error);
+  });
+
+
+  
+  const data = {
+    'nombre': nombre,
+    'direccion': direccion,
+    'telefono': telefono,
+    'correoElectronico': correoElectronico,
+    'contrasena': contrasena,
+    'id': numberOfDocuments
+
+ 
+  };
+
+  collectionRef.add(data)
+    .then((docRef) => {
+      console.log('Cuenta creada');
+    })
+    .catch((error) => {
+      console.error('Error al crear cuenta:', error);
+    });
+    res.send('Cuenta creada');
+
+});
+
 app.post('/IniciarSesion', async (req, res) => {
   const nombreUsuario =  req.body.nombreUsuario;
   const contrasena = req.body.contrasena;
