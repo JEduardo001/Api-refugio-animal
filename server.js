@@ -130,7 +130,7 @@ app.post('/IniciarSesion', async (req, res) => {
   const contrasena = req.body.contrasena;
 
   var collectionRef = db.collection('usuarios');
-  var querySnapshot = await collectionRef.where('nombreUsuario', '==', nombreUsuario,'contrasena', '==', contrasena).get();
+  var querySnapshot = await collectionRef.where('nombreUsuario', '==', nombreUsuario).where('contrasena', '==', contrasena).get();
   var tipoUser;
   var existe=false;
   var idUsuario;
