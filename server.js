@@ -169,7 +169,7 @@ app.post('/SubirReporteRescateMascota', async (req, res) => {
   const tipoMascota = req.body.tipoMascota;
   const ubicacionMascota = req.body.ubicacionMascota;
 
-  const idMascota = Number(idMascota);
+  idMascota = Number(idMascota);
   const collectionRef = db.collection('reporteMascotasRescatadas');
 
   const data = {
