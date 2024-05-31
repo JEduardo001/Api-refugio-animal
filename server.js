@@ -486,9 +486,12 @@ app.post('/SubirMascota', async (req, res) => {
   const fechaIngreso = req.body.fecha;
   const tipoMascota = req.body.tipoMascota;
   const destinoMascota = req.body.destinoMascota;
+  const signosMaltrato = req.body.signosMaltrato;
+  const vacunaLeptospirosis = req.body.vacunaLeptospirosis;
+  const vacunaRabia = req.body.vacunaRabia;
   var  coleccionDatos;
   var especie;
-  var data2;
+  //var data2;
 
     console.log('tipo mascota  es   ', tipoMascota);
     console.log('destino mascota  es   ', destinoMascota);
@@ -551,7 +554,10 @@ app.post('/SubirMascota', async (req, res) => {
     'imagen': imagen,
     'id': numberOfDocuments,
     'ubicacion': coleccionDatos,
-    'especie': especie
+    'especie': especie,
+    'signosMaltrato': signosMaltrato,
+    'vacunaLeptospirosis': vacunaLeptospirosis,
+    'vacunaRabia': vacunaRabia
   };
 
   collectionRef1.add(data)
@@ -565,13 +571,13 @@ app.post('/SubirMascota', async (req, res) => {
 
   
 
-  collectionRef2.add(data2)
+  /*collectionRef2.add(data2)
     .then((docRef) => {
       console.log('Documento agregado con ID:', numberOfDocuments);
     })
     .catch((error) => {
       console.error('Error al agregar documento :', error);
-    });
+    });*/
     
 });
 
