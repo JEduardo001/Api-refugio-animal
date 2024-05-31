@@ -134,7 +134,7 @@ app.post('/SubirReporteRescateMascota', async (req, res) => {
   const tipoMascota = req.body.tipoMascota;
   const ubicacionMascota = req.body.ubicacionMascota;
 
-  
+  const idMascota = Number(idMascota);
   const collectionRef = db.collection('reporteMascotasRescatadas');
 
   const data = {
@@ -450,7 +450,6 @@ app.post('/SubirMascota', async (req, res) => {
     });
     res.send('agregado correctamanete');
 
-  //Subimos los datos a la coleccion perrosAdopcion
   
 
   collectionRef2.add(data2)
