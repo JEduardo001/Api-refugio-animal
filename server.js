@@ -151,7 +151,7 @@ app.post('/IniciarSesion', async (req, res) => {
  
   const data = {
     'idUsuario': idUsuario,
-    'tipo': tipo,
+    'tipo': tipoUser,
     'existeUsuario': existe,
    
   };
