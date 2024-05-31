@@ -125,6 +125,41 @@ async function getId(coleccion) {
   return numberOfDocuments;
 }
 
+app.post('/IniciarSesion', async (req, res) => {
+  const nombreUsuario =  req.body.nombreUsuario;
+  const contrasena = req.body.contrasena;
+
+  const collectionRef = db.collection('usuarios');
+  const querySnapshot = await collectionRef.where('nombreUsuario', '==', nombreUsuario,'contrasena', '==', contrasena).get();
+  var tipoUser;
+  var existe=false;
+  var idUsuario;
+
+  if (querySnapshot.empty) {
+    collectionRef = db.collection('administradores');
+    querySnapshot = await collectionRef.where('usuario', '==', nombreUsuario).where('contrasena', '==', contrasena).get();
+    if (!querySnapshot.empty) {
+      tipoUser = 'admin';
+      existe = true;
+      idUsuario = querySnapshot.docs[0].id; 
+    }
+  } else {
+    tipoUser = 'usuario';
+    existe = true;
+    idUsuario = querySnapshot.docs[0].id; 
+  }
+ 
+  const data = {
+    'idUsuario': idUsuario,
+    'tipo': tipo,
+    'existeUsuario': existe,
+   
+  };
+
+  res.json(data); 
+
+});
+
 app.post('/SubirReporteRescateMascota', async (req, res) => {
   const nombreTutor =  req.body.nombreTutor;
   const direccion = req.body.direccion;
