@@ -604,18 +604,18 @@ app.get('/verGatosVerTodos', async (req, res) => {
       const gatoData = doc.data();
       const ubicacionGato = gatoData.ubicacion;
       const idGato = Number(gatoData.id);
-      console.log('gato id',idGato);
-      console.log('ubicacioon ',ubicacionGato);
+      console.log('gato id', idGato);
+      console.log('ubicacioon ', ubicacionGato);
 
       const otherCollectionRef = db.collection(ubicacionGato); 
       const otherSnapshot = await otherCollectionRef.where('idGato', '==', idGato).get();
 
       const otherData = otherSnapshot.docs.map(doc => doc.data());
-      gatoData.otherData = otherData;
+      gatoData.otherData = otherData; // Añadimos otherData como un array de objetos
 
       datos.push(gatoData);
     }));
-      console.log('datos ',datos);
+    console.log('datos ', JSON.stringify(datos, null, 2)); // Print the datos array in a more readable format
 
     res.json(datos);
   } catch (error) {
@@ -623,6 +623,7 @@ app.get('/verGatosVerTodos', async (req, res) => {
     res.status(500).json({ error: 'Ocurrió un error al obtener datos. ver todos los gatos' });
   }
 });
+
 
 
 //---------- VerGatosEnAdopcion
