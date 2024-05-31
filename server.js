@@ -229,7 +229,7 @@ app.delete('/rescatarMascota', async (req, res) => {
       await doc.ref.delete();
     });
 
-    res.status(200).send(`Mascota con ID ${idNumber} eliminada correctamente de ${tipoMascota + 's'} y ${ubicacion}.`);
+    res.status(200).send(`TODO BIEN`);
   } catch (error) {
     console.error('Error al eliminar el documento:', error);
     res.status(500).send('Error al eliminar el documento');
