@@ -268,8 +268,14 @@ app.post('/SubirReporteRescateMascota', async (req, res) => {
     'ubicacionMascota': ubicacionMascota
   };
 
-  
-    res.send('agregado correctamanete');
+  collectionRef.add(data)
+    .then((docRef) => {
+      console.log('Reporte agregado :');
+    })
+    .catch((error) => {
+      console.error('Error al agregar reporte :', error);
+    });
+    res.send('agregado correctamanete reporte');
 
 });
 
