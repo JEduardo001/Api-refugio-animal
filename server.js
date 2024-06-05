@@ -6,7 +6,10 @@ const PORT = process.env.PORT || 3000;
 const admin = require('firebase-admin');
 var serviceAccount = require("./refugio-animal-92181-firebase-adminsdk-h8a3q-d18c72f487.json");
 // Middleware para analizar el cuerpo de la solicitud como JSON
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+const fileUpload = require('express-fileupload');
+app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } })); 
 //firestorage
 //const multer = require('multer');
 //const { Storage } = require('@google-cloud/storage');
