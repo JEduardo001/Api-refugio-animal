@@ -2,7 +2,6 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
-//const db = require('./dbFirestore'); // Importa la conexión a la base de datos
 const admin = require('firebase-admin');
 var serviceAccount = require("./refugio-animal-92181-firebase-adminsdk-h8a3q-d18c72f487.json");
 // Middleware para analizar el cuerpo de la solicitud como JSON
@@ -10,9 +9,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 const fileUpload = require('express-fileupload');
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } })); 
-//firestorage
-//const multer = require('multer');
-//const { Storage } = require('@google-cloud/storage');
+
 
 
 
@@ -21,35 +18,7 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
-//const upload = multer({ dest: 'uploads/' });
-// Crea una instancia de Storage de Google Cloud
-//const storage = new Storage();
-// Obtiene una referencia al bucket de Firebase Storage
-//const bucket = storage.bucket(admin.storage().bucket().name);
 
-
-// Ruta de ejemplo
-/*app.get('/mensaje', (req, res) => {
-    res.send('¡Hola, mundo desde Express!');
-});
-
-// Iniciar el servidor
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
-
-// Ruta para obtener todos los usuarios
-app.get('/gatos', (req, res) => {
-    db.query('SELECT * FROM gatos', (err, results) => {
-      if (err) {
-        console.error('Error al obtener usuarios:', err);
-        res.status(500).json({ error: 'Error interno del servidor' });
-      } else {
-        //res.send('TODO BIEN');
-        res.json(results);
-      }
-    });
-});*/
 
 
 app.listen(PORT, () => {
@@ -57,21 +26,6 @@ app.listen(PORT, () => {
 });
 
 
-// endpoint de firestore 
-
-app.get('/datos', async (req, res) => {
-  try {
-    const datos = [];
-    const snapshot = await db.collection('1').get();
-    snapshot.forEach((doc) => {
-      datos.push(doc.data());
-    });
-    res.json(datos);
-  } catch (error) {
-    console.error('Error al obtener datos:', error);
-    res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
-  }
-});
 
 
 app.get('/verGatos', async (req, res) => {
@@ -245,7 +199,7 @@ app.post('/IniciarSesion', async (req, res) => {
     'existeUsuario': existe,
   };
 
-  res.json(data); // Devolver la respuesta al cliente
+  res.json(data); 
 });
 
 
