@@ -449,7 +449,7 @@ app.post('/ActualizarMascota', async (req, res) => {
 
 app.post('/DesactivarMascota', async (req, res) => {
   const tipoMascota =  req.body.tipoMascota;
-  const ubicacion = req.body.ubicacion;
+  const ubicacionMascota = req.body.ubicacion;
   const valor = req.body.valor;
   const id = req.body.id;
 
