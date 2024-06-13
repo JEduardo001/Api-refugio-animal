@@ -521,6 +521,10 @@ app.post('/SubirMascota', async (req, res) => {
   const signosMaltrato = req.body.signosMaltrato;
   const vacunaLeptospirosis = req.body.vacunaLeptospirosis;
   const vacunaRabia = req.body.vacunaRabia;
+  const vacunaCoronavirus = req.body.vacunaCoronavirus;
+  const vacunaPeritonitis = req.body.vacunaPeritonitis;
+  const vacunaCalcivirus = req.body.vacunaCalcivirus;
+
   var  coleccionDatos;
   var especie;
   var data2;
@@ -590,6 +594,9 @@ app.post('/SubirMascota', async (req, res) => {
     'signosMaltrato': signosMaltrato,
     'vacunaLeptospirosis': vacunaLeptospirosis,
     'vacunaRabia': vacunaRabia,
+    'vacunaCoronavirus': vacunaCoronavirus,
+    'vacunaPeritonitis': vacunaPeritonitis,
+    'vacunaCalcivirus': vacunaCalcivirus,
     'adoptado': false
 
   };
