@@ -373,6 +373,9 @@ app.post('/ActualizarMascota', async (req, res) => {
   const signosMaltrato = req.body.signosMaltrato;
   const vacunaLeptospirosis = req.body.vacunaLeptospirosis;
   const vacunaRabia = req.body.vacunaRabia;
+  const vacunaCoronavirus = req.body.vacunaCoronavirus;
+  const vacunaPeritonitis = req.body.vacunaPeritonitis;
+  const vacunaCalcivirus = req.body.vacunaCalcivirus;
   
 
   var idMascota;
@@ -394,6 +397,10 @@ app.post('/ActualizarMascota', async (req, res) => {
   if (signosMaltrato !== undefined) datos1.signosMaltrato = signosMaltrato;
   if (vacunaLeptospirosis !== undefined) datos1.vacunaLeptospirosis = vacunaLeptospirosis;
   if (vacunaRabia !== undefined) datos1.vacunaRabia = vacunaRabia;
+  datos1.vacunaCoronavirus = vacunaCoronavirus;
+  datos1.vacunaPeritonitis = vacunaPeritonitis;
+  datos1.vacunaCalcivirus = vacunaCalcivirus;
+
 
 
 
