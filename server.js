@@ -593,7 +593,9 @@ app.post('/SubirMascota', async (req, res) => {
     'especie': especie,
     'signosMaltrato': signosMaltrato,
     'vacunaLeptospirosis': vacunaLeptospirosis,
-    'vacunaRabia': vacunaRabia
+    'vacunaRabia': vacunaRabia,
+    'adoptado': false
+
   };
 
   collectionRef1.add(data)
