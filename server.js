@@ -475,19 +475,15 @@ app.post('/DesactivarMascota', async (req, res) => {
   }
   switch(ubicacionMascota){
     case 'gatosAdopcion':
-      datos2.fechaIngreso = fecha;
       idMascota='idGato';
     break;
     case 'gatosPerdidos':
-      datos2.fechaPerdido = fecha;
       idMascota='idGato';
     break;
     case 'perrosAdopcion':
-      datos2.fechaIngreso = fecha;
       idMascota='idPerro';
     break;
     case 'perrosPerdidos':
-      datos2.fechaPerdido = fecha;
       idMascota='idPerro';
     break;
   }
