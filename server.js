@@ -446,6 +446,72 @@ app.post('/ActualizarMascota', async (req, res) => {
  
 });
 
+
+app.post('/DesactivarMascota', async (req, res) => {
+  const tipoMascota =  req.body.tipoMascota;
+  const ubicacion = req.body.ubicacion;
+  const valor = req.body.valor;
+  const id = req.body.id;
+
+  
+
+  var idMascota;
+
+  const idNumber = Number(id);
+  if (isNaN(idNumber)) {
+    return res.status(400).send('ID del documento no es válido');
+  }
+
+  var coleccionDB={};
+  var datos1 = {};
+
+  if (nombre !== undefined) datos1.adoptado = valor;
+
+
+  if(tipoMascota=='gato'){
+    coleccionDB = 'gatos';
+  }else{
+    coleccionDB = 'perros';
+  }
+  switch(ubicacionMascota){
+    case 'gatosAdopcion':
+      datos2.fechaIngreso = fecha;
+      idMascota='idGato';
+    break;
+    case 'gatosPerdidos':
+      datos2.fechaPerdido = fecha;
+      idMascota='idGato';
+    break;
+    case 'perrosAdopcion':
+      datos2.fechaIngreso = fecha;
+      idMascota='idPerro';
+    break;
+    case 'perrosPerdidos':
+      datos2.fechaPerdido = fecha;
+      idMascota='idPerro';
+    break;
+  }
+
+
+  try {
+    console.log('Datos a actualizar:', datos1);
+    console.log('Colección:', coleccionDB, 'ID:', id);
+
+    const collectionRef = db.collection(coleccionDB);
+    const querySnapshot = await collectionRef.where('id', '==', idNumber).get();
+    const docRef = querySnapshot.docs[0].ref;
+
+    await docRef.update(datos1);
+    res.status(200).send('Documento actualizado correctamente');
+  } catch (error) {
+    console.error('Error al actualizar el documento:', error);
+    res.status(500).send('Error al actualizar el documento');
+  }
+
+  
+ 
+});
+
 app.post('/SubirMascota', async (req, res) => {
   // Aquí puedes acceder a los parámetros enviados en la solicitud
   const nombre =  req.body.nombre;
