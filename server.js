@@ -465,7 +465,7 @@ app.post('/DesactivarMascota', async (req, res) => {
   var coleccionDB={};
   var datos1 = {};
 
-  if (nombre !== undefined) datos1.adoptado = valor;
+ datos1.adoptado = valor;
 
 
   if(tipoMascota=='gato'){
